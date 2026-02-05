@@ -118,6 +118,23 @@ export default {
         return jsonResponse({ success: true });
       });
 
+      // 分享下载接口（无认证）
+      router.get('/share/:fileId', async (request, params) => {
+        const { fileId } = params;
+        const fileData = await fileService.downloadFile(fileId);
+        if (!fileData) {
+          return errorResponse('File not found', 404);
+        }
+
+        return new Response(fileData.data, {
+          headers: {
+            'Content-Type': fileData.mimeType || 'application/octet-stream',
+            'Content-Disposition': `attachment; filename="${fileData.name}"`,
+            ...corsHeaders
+          }
+        });
+      });
+
       // 文件操作
       router.post('/api/files', async (request) => {
         const token = auth.extractToken(request);

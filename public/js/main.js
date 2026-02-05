@@ -628,6 +628,7 @@ class CloudGramApp {
             </div>
             <div class="file-actions">
                 <button class="action-btn action-btn-primary" onclick="app.downloadFile(${file.id}, '${this.escapeHtml(file.name)}')">下载</button>
+                <button class="action-btn action-btn-secondary" onclick="app.shareFile(${file.id}, '${this.escapeHtml(file.name)}')">分享</button>
                 <button class="action-btn action-btn-secondary" onclick="app.renameItem('file', ${file.id}, '${this.escapeHtml(file.name)}')">重命名</button>
                 <button class="action-btn action-btn-danger" onclick="app.deleteItem('file', ${file.id}, '${this.escapeHtml(file.name)}')">删除</button>
             </div>
@@ -647,6 +648,32 @@ class CloudGramApp {
             this.notification.success('下载完成', `文件 ${fileName} 下载完成`);
         } catch (error) {
             this.notification.error('下载失败', `文件 ${fileName} 下载失败：${error.message}`);
+        } finally {
+            this.uiManager.hideLoading();
+        }
+    }
+
+    /**
+     * 分享文件
+     */
+    async shareFile(fileId, fileName) {
+        this.uiManager.showLoading('正在生成分享链接...');
+        try {
+            // 生成分享链接（使用当前域名和文件ID）
+            const currentUrl = window.location.origin;
+            const shareUrl = `${currentUrl}/share/${fileId}`;
+            
+            // 复制链接到剪贴板
+            const success = await this.uiManager.copyToClipboard(shareUrl);
+            
+            if (success) {
+                this.notification.success('分享成功', `分享链接已复制到剪贴板：${shareUrl}`);
+            } else {
+                this.notification.info('分享链接', `请复制以下链接：${shareUrl}`);
+            }
+        } catch (error) {
+            console.error('生成分享链接失败:', error);
+            this.notification.error('分享失败', `生成分享链接失败：${error.message}`);
         } finally {
             this.uiManager.hideLoading();
         }

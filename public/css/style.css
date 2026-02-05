@@ -806,7 +806,7 @@ body {
 @media (prefers-color-scheme: dark) {
     body {
         background-color: #1a1a1a;
-        color: #e0e0e0;
+        color: #ffffff;
     }
 
     .main-container {
@@ -827,17 +827,63 @@ body {
 
     .modal-content {
         background-color: #1e1e1e;
-        color: #e0e0e0;
+        color: #ffffff;
     }
 
     .form-item input {
         background-color: #2a2a2a;
         border-color: #444;
-        color: #e0e0e0;
+        color: #ffffff;
     }
 
     .form-item input:focus {
         border-color: #007bff;
+    }
+
+    .header-title,
+    .file-name,
+    .modal-header h3 {
+        color: #ffffff;
+    }
+
+    .user-info,
+    .breadcrumb,
+    .file-meta,
+    .loading,
+    .empty-state,
+    .modal-close {
+        color: #ffffff;
+    }
+
+    .notification-item {
+        background-color: #1e1e1e;
+        color: #ffffff;
+        border-color: #333;
+    }
+
+    .dropdown-toggle {
+        color: #ffffff;
+    }
+
+    .dropdown-toggle:hover {
+        background: #333;
+    }
+
+    .dropdown-menu {
+        background: #1e1e1e;
+        border-color: #333;
+    }
+
+    .dropdown-item {
+        color: #ffffff;
+    }
+
+    .dropdown-item:hover {
+        background: #333;
+    }
+
+    .loader-content p {
+        color: #ffffff;
     }
 }
 
